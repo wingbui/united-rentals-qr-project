@@ -1,12 +1,18 @@
-import { useReducer, useState } from 'react';
+import { useReducer, useState } from "react";
 import QrReader from "react-qr-reader";
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
 
-import { isValidHex } from './utils';
+import { AppButton } from "../../components/appButton/AppButton";
+import { isValidHex } from "./utils";
 import { PageHeading } from "../../components/pageHeading/PageHeading";
 import { QRState } from "./types/qrState";
 import { reducer } from "./reducer";
-import { SCAN_QR_CODE_FAILURE, SCAN_QR_CODE_SUCCESS } from "./actions";
+import {
+  SCAN_QR_CODE_FAILURE,
+  SCAN_QR_CODE_SUCCESS,
+  SCAN_QR_CODE,
+  SCAN_QR_CODE_END,
+} from "./actions";
 
 const initialState: QRState = {
   dataList: [],
@@ -55,7 +61,21 @@ export const QRReader = () => {
     <>
       <PageHeading>QR Scanner</PageHeading>
       <QRContainer>
-        <QrReader onError={handleError} onScan={handleScan} />
+        {state.scanning && (
+          <QrReader onError={handleError} onScan={handleScan} />
+        )}
+
+        <div>
+          <AppButton onClick={() => dispatch({ type: SCAN_QR_CODE })}>
+            Scan
+          </AppButton>
+          <AppButton
+            color='secondary'
+            onClick={() => dispatch({ type: SCAN_QR_CODE_END })}
+          >
+            Close
+          </AppButton>
+        </div>
       </QRContainer>
     </>
   );

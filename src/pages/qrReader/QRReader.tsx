@@ -111,14 +111,13 @@ const QRContainer = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   border: 2px solid green;
   padding: 0.5rem;
-  height: 83vh;
+  height: 87vh;
 `;
 
 const QRWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  height: 100%;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -128,15 +127,15 @@ const ButtonsWrapper = styled.div`
 `;
 
 const DataListWrapper = styled.div`
-  height: 75%;
+  height: 100%;
   overflow-y: auto;
-  @media (min-width: 567px) {
-    height: 90%;
-  } ;
 `;
 
 const DataListContainer = styled.div`
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 `;
 
 const SectionHeadingWrapper = styled.div`

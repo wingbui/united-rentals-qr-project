@@ -1,6 +1,7 @@
 import { useReducer, useState } from "react";
 import QrReader from "react-qr-reader";
 import styled from "@emotion/styled";
+import useSound from "use-sound";
 
 import { AppButton } from "../../components/appButton/AppButton";
 import { DataList } from "./components/dataList/DataList";
@@ -16,6 +17,8 @@ import {
 } from "./actions";
 import { InfoMessage } from "../../components/infoMessage/InfoMessage";
 import { SectionHeading } from "../../components/sectionHeading/SectionHeading";
+import errSound from "./../../assets/sounds/err.wav";
+import successSound from "./../../assets/sounds/beep.wav";
 
 const initialState: QRState = {
   dataList: [],
@@ -25,6 +28,8 @@ const initialState: QRState = {
 };
 
 export const QRReader = () => {
+  const [playSuccess] = useSound(successSound);
+  const [playErr] = useSound(errSound);
   const [state, dispatch] = useReducer(reducer, initialState);
   const [currentData, setCurrentData] = useState("");
 
@@ -42,11 +47,13 @@ export const QRReader = () => {
         type: SCAN_QR_CODE_FAILURE,
         payload: `${data} is not a hexadecimal value.`,
       });
+      playErr();
       return;
     }
 
     if (!!data && isValidHex(data)) {
       dispatch({ type: SCAN_QR_CODE_SUCCESS, payload: data });
+      playSuccess();
     }
   };
 

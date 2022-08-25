@@ -1,12 +1,12 @@
+import { useReducer, useState } from 'react';
 import QrReader from "react-qr-reader";
-
-import { PageHeading } from "../../components/pageHeading/PageHeading";
-import { reducer } from "./reducer";
-import { QRState } from "./types/qrState";
-import { SCAN_QR_CODE_FAILURE, SCAN_QR_CODE_SUCCESS } from "./actions";
-import { isValidHex } from "./utils";
-import { useReducer } from "react";
 import styled from '@emotion/styled';
+
+import { isValidHex } from './utils';
+import { PageHeading } from "../../components/pageHeading/PageHeading";
+import { QRState } from "./types/qrState";
+import { reducer } from "./reducer";
+import { SCAN_QR_CODE_FAILURE, SCAN_QR_CODE_SUCCESS } from "./actions";
 
 const initialState: QRState = {
   dataList: [],
@@ -17,12 +17,22 @@ const initialState: QRState = {
 
 export const QRReader = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [currentData, setCurrentData] = useState("");
 
   const handleScan = (data: string | null) => {
     if (!data) {
-      dispatch({ type: SCAN_QR_CODE_FAILURE, payload: "No data found" });
+      dispatch({
+        type: SCAN_QR_CODE_FAILURE,
+        payload: "No data found, try again",
+      });
       return;
     }
+
+    if (currentData === data) {
+      return;
+    }
+
+    setCurrentData(data);
 
     if (!!data && !isValidHex(data)) {
       dispatch({
@@ -47,7 +57,6 @@ export const QRReader = () => {
       <QRContainer>
         <QrReader onError={handleError} onScan={handleScan} />
       </QRContainer>
-      {JSON.stringify(state)}
     </>
   );
 };

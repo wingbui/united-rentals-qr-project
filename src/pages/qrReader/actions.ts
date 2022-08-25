@@ -1,0 +1,4 @@
+export const SCAN_QR_CODE = 'SCAN_QR_CODE';
+export const SCAN_QR_CODE_SUCCESS = 'SCAN_QR_CODE_SUCCESS';
+export const SCAN_QR_CODE_FAILURE = 'SCAN_QR_CODE_FAILURE';
+export const SCAN_QR_CODE_END = 'SCAN_QR_CODE_END';

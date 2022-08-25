@@ -27,14 +27,13 @@ export const QRReader = () => {
   const [currentData, setCurrentData] = useState("");
 
   const handleScan = (data: string | null) => {
-    if (!!data && currentData !== data ) {
+    if (!!data && currentData !== data) {
       setCurrentData(data);
     }
 
     if (!!data && currentData === data) {
       return;
     }
-
 
     if (!!data && !isValidHex(data)) {
       dispatch({
@@ -62,6 +61,9 @@ export const QRReader = () => {
         )}
 
         {state.error && <InfoMessage color='error'>{state.error}</InfoMessage>}
+        {state.success && (
+          <InfoMessage>{`${currentData} is added.`}</InfoMessage>
+        )}
 
         <div>
           <AppButton onClick={() => dispatch({ type: SCAN_QR_CODE })}>

@@ -13,6 +13,7 @@ import {
   SCAN_QR_CODE,
   SCAN_QR_CODE_END,
 } from "./actions";
+import { InfoMessage } from "../../components/infoMessage/InfoMessage";
 
 const initialState: QRState = {
   dataList: [],
@@ -26,19 +27,14 @@ export const QRReader = () => {
   const [currentData, setCurrentData] = useState("");
 
   const handleScan = (data: string | null) => {
-    if (!data) {
-      dispatch({
-        type: SCAN_QR_CODE_FAILURE,
-        payload: "No data found, try again",
-      });
+    if (!!data && currentData !== data ) {
+      setCurrentData(data);
+    }
+
+    if (!!data && currentData === data) {
       return;
     }
 
-    if (currentData === data) {
-      return;
-    }
-
-    setCurrentData(data);
 
     if (!!data && !isValidHex(data)) {
       dispatch({
@@ -64,6 +60,8 @@ export const QRReader = () => {
         {state.scanning && (
           <QrReader onError={handleError} onScan={handleScan} />
         )}
+
+        {state.error && <InfoMessage color='error'>{state.error}</InfoMessage>}
 
         <div>
           <AppButton onClick={() => dispatch({ type: SCAN_QR_CODE })}>

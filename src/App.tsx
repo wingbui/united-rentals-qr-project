@@ -1,4 +1,3 @@
-import "./App.css";
 import { QRReader } from "./pages/qrReader/QRReader";
 
 function App() {

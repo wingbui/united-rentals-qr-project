@@ -1,15 +1,17 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { PageHeading } from './PageHeading';
+import { PageHeading } from "./PageHeading";
 
 export default {
-  title: 'Heading/PageHeading',
+  title: "Headings/Heading",
   component: PageHeading,
 } as ComponentMeta<typeof PageHeading>;
 
-const Template: ComponentStory<typeof PageHeading> = (args) => <PageHeading {...args} />;
+const Template: ComponentStory<typeof PageHeading> = (args) => (
+  <PageHeading {...args} />
+);
 
-export const CustomHeading= Template.bind({});
-CustomHeading.args = {
-  children: 'PageHeading',
+export const CustomPageHeading = Template.bind({});
+CustomPageHeading.args = {
+  children: "Page Heading",
 };

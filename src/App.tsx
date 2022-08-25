@@ -1,9 +1,10 @@
-import './App.css';
+import "./App.css";
+import { QRReader } from "./pages/qrReader/QRReader";
 
 function App() {
   return (
-    <div className="App">
-      This is the home page
+    <div className='App'>
+      <QRReader />
     </div>
   );
 }

@@ -57,34 +57,63 @@ export const QRReader = () => {
     <>
       <PageHeading>QR Scanner</PageHeading>
       <QRContainer>
-        {state.scanning && (
-          <QrReader onError={handleError} onScan={handleScan} />
-        )}
+        <QRWrapper>
+          {state.scanning && (
+            <QrReader onError={handleError} onScan={handleScan} />
+          )}
 
-        {state.error && <InfoMessage color='error'>{state.error}</InfoMessage>}
-        {state.success && (
-          <InfoMessage>{`${currentData} is added.`}</InfoMessage>
-        )}
+          {state.error && (
+            <InfoMessage color='error'>{state.error}</InfoMessage>
+          )}
+          {state.success && (
+            <InfoMessage>{`${currentData} is added.`}</InfoMessage>
+          )}
 
-        <div>
-          <AppButton onClick={() => dispatch({ type: SCAN_QR_CODE })}>
-            Scan
-          </AppButton>
-          <AppButton
-            color='secondary'
-            onClick={() => dispatch({ type: SCAN_QR_CODE_END })}
-          >
-            Close
-          </AppButton>
-        </div>
+          <ButtonsWrapper>
+            <AppButton onClick={() => dispatch({ type: SCAN_QR_CODE })}>
+              Scan
+            </AppButton>
+            <AppButton
+              color='secondary'
+              onClick={() => dispatch({ type: SCAN_QR_CODE_END })}
+            >
+              Close
+            </AppButton>
+          </ButtonsWrapper>
+        </QRWrapper>
 
-        <DataList dataList={state.dataList} />
+        <DataListWrapper>
+          <DataList dataList={state.dataList} />
+        </DataListWrapper>
       </QRContainer>
     </>
   );
 };
 
 const QRContainer = styled.div`
-  max-width: 600px;
+  max-width: 768px;
   margin: auto;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  border: 2px solid green;
+  padding: 0.5rem;
+  height: 87vh;
+`;
+
+const QRWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+`;
+
+const DataListWrapper = styled.div`
+  height: 100%;
+  overflow-y: auto;
 `;

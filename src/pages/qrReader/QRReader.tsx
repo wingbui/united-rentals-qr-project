@@ -3,6 +3,7 @@ import QrReader from "react-qr-reader";
 import styled from "@emotion/styled";
 
 import { AppButton } from "../../components/appButton/AppButton";
+import { DataList } from "./components/dataList/DataList";
 import { isValidHex } from "./utils";
 import { PageHeading } from "../../components/pageHeading/PageHeading";
 import { QRState } from "./types/qrState";
@@ -76,6 +77,8 @@ export const QRReader = () => {
             Close
           </AppButton>
         </div>
+
+        <DataList dataList={state.dataList} />
       </QRContainer>
     </>
   );

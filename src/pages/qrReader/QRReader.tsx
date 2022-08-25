@@ -15,6 +15,7 @@ import {
   SCAN_QR_CODE_END,
 } from "./actions";
 import { InfoMessage } from "../../components/infoMessage/InfoMessage";
+import { SectionHeading } from "../../components/sectionHeading/SectionHeading";
 
 const initialState: QRState = {
   dataList: [],
@@ -82,9 +83,14 @@ export const QRReader = () => {
           </ButtonsWrapper>
         </QRWrapper>
 
-        <DataListWrapper>
-          <DataList dataList={state.dataList} />
-        </DataListWrapper>
+        <DataListContainer>
+          <SectionHeadingWrapper>
+            <SectionHeading>Scanned Items</SectionHeading>
+          </SectionHeadingWrapper>
+          <DataListWrapper>
+            <DataList dataList={state.dataList} />
+          </DataListWrapper>
+        </DataListContainer>
       </QRContainer>
     </>
   );
@@ -95,16 +101,17 @@ const QRContainer = styled.div`
   margin: auto;
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   border: 2px solid green;
   padding: 0.5rem;
-  height: 87vh;
+  height: 83vh;
 `;
 
 const QRWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  height: 100%;
 `;
 
 const ButtonsWrapper = styled.div`
@@ -114,6 +121,17 @@ const ButtonsWrapper = styled.div`
 `;
 
 const DataListWrapper = styled.div`
-  height: 100%;
+  height: 75%;
   overflow-y: auto;
+  @media (min-width: 567px) {
+    height: 90%;
+  } ;
+`;
+
+const DataListContainer = styled.div`
+  min-height: 100%;
+`;
+
+const SectionHeadingWrapper = styled.div`
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.2);
 `;
